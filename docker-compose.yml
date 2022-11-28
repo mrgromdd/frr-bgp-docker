@@ -1,0 +1,27 @@
+version: '3'
+
+networks:
+  frr_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.8.0/21
+
+services:
+  frr:
+    image: iwaseyusuke/frr
+    build:
+      context: .
+    tty: true
+    networks:
+      - frr_net
+    privileged: true
+    volumes:
+      - "./config/daemons:/etc/frr/daemons" 
+      - "./config/bgpd.conf:/etc/frr/bgpd.conf" 
+      - "./config/zebra.conf:/etc/frr/zebra.conf" 
+    deploy:
+      restart_policy:
+        condition: on-failure
+      mode: replicated
+      replicas: 2
