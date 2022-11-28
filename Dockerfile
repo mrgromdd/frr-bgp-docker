@@ -2,7 +2,6 @@
 
 FROM ubuntu:16.04
 
-MAINTAINER IWASE Yusuke <iwase.yusuke0@gmail.com>
 ARG user=iwaseyusuke
 ARG branch_name=frr-2.0
 
