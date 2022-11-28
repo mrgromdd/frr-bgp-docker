@@ -1,12 +1,13 @@
 # FRRouting
 
 FROM ubuntu:16.04
+
+MAINTAINER IWASE Yusuke <iwase.yusuke0@gmail.com>
+ARG user=iwaseyusuke
 ARG branch_name=frr-2.0
 
 USER root
 WORKDIR /root
-
-COPY ENTRYPOINT.sh /ENTRYPOINT.sh
 
 # Install dependencies
 RUN apt-get update && apt-get install -yq --no-install-recommends \
@@ -86,7 +87,3 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
 # Prepare init.d script
  && cp /root/frr/tools/frr /etc/init.d/ \
  && sed -i "s/frr:frr/root:root/" /etc/init.d/frr \
-# Prepare ENTRYPOINT.sh
- && chmod +x /ENTRYPOINT.sh
-
-ENTRYPOINT ["/ENTRYPOINT.sh"]
